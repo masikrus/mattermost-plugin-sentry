@@ -35,9 +35,16 @@ func (p *Plugin) handleWebhook(w http.ResponseWriter, r *http.Request) {
 		project  = strings.ToUpper(webhook.Project)
 		message  = webhook.Event.Title
 		url      = webhook.URL
-		location = webhook.Event.Location
+		location = ""
 		color    = "#EC5E44"
 	)
+
+	for _, tag := range webhook.Event.Tags {
+		if tag[0] == "environment" {
+			location = tag[1]
+			break
+		}
+	}
 
 	post := &model.Post{
 		UserId:    user,

@@ -11,4 +11,7 @@ type SentryWebhook struct {
 type SentryEvent struct {
 	Title    string `json:"title"`
 	Location string `json:"location"`
+	Tags     []Tag  `json:"tags"`
 }
+
+type Tag [2]string
